@@ -2,6 +2,7 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {changeCountry} from "../../store/actions";
 import {IRequestReducerState} from "../../store/reducer/requestReducer";
+import "./style.scss"
 
 const Header : React.FC = () => {
 

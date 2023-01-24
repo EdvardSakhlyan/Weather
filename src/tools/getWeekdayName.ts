@@ -1,5 +1,8 @@
 const getWeekdayName = (date: string) : string => {
-    return new Date(date).toLocaleString('en-us', {weekday: 'long'})
+    const dateArray = new Date(date).toUTCString().split("");
+    const empty = [];
+    for(let i = 0 ; i < 3 ; i++)  empty[i] = dateArray[i]
+    return empty.join('')
 }
 
 export const reformatDate = (date: string) : string =>  {

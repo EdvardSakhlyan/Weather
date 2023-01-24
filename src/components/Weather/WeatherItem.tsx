@@ -20,12 +20,12 @@ const WeatherItem : React.FC<WeatherItemProps> = ({date,day}) => {
         <div key={date} className="day-box">
             <div className="date-celsius">
                 <h2 className="date">{getWeekdayName(reformedDate)}</h2>
-                <h3 className="date">{date}</h3>
+                <h4 className="date">{date}</h4>
                 <h3 className="celsius">{day.avgtemp_c}°C</h3>
             </div>
             <div className="icon-text">
                 <img src={day.condition.icon} alt="weather-info"/>
-                <h2>{day.condition.text}</h2>
+                <h4>{day.condition.text}</h4>
             </div>
         </div>
     );
