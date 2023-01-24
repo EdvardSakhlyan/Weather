@@ -1,4 +1,5 @@
 import {IRequestPayload} from "../sagas";
+import {Forecastday} from "../../requests/responseTypes";
 
 export type WeatherPayload = string | number | IRequestPayload
 
@@ -8,7 +9,7 @@ export interface IResponsePayload {
         region: string
     },
     forecast: {
-        forecastday: object[]
+        forecastday: Forecastday[]
     }
 }
 

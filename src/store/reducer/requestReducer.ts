@@ -14,7 +14,7 @@ const initialState = {
     forecastDay: []
 }
 
-const requestReducer : Reducer<IRequestReducerState,IAction<IResponsePayload>> = (state = initialState , action ) => {
+const requestReducer : Reducer<IRequestReducerState,IAction<IResponsePayload>> = (state = initialState , action ) : IRequestReducerState => {
     switch (action.type){
         case "FETCH_SUCCEEDED":
             return {
@@ -22,7 +22,7 @@ const requestReducer : Reducer<IRequestReducerState,IAction<IResponsePayload>> =
                 country: action.payload.location.country,
                 region: action.payload.location.region,
                 forecastDay: action.payload.forecast.forecastday
-            } as IRequestReducerState
+            }
         case "FETCH_REQUESTED":
             return state
         default:
