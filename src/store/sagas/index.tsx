@@ -1,21 +1,24 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeEvery } from 'redux-saga/effects'
 import {IAction} from "../actions";
 import getWeather from "../../requests/getWeekWeather";
+import {WeatherResponse} from "../../requests/responseTypes";
 
-function* fetchUser(action: IAction) : any {
+export interface IRequestPayload {
+    country: string,
+    days: number
+}
+
+function* fetchUser(action: IAction<IRequestPayload>) {
     try {
-        // @ts-ignore
-        const weather = yield call(() => getWeather(action.payload.country , action.payload.days));
-        console.log(weather)
-        yield put({type: "USER_FETCH_SUCCEEDED", payload: weather});
+        const weather : WeatherResponse = yield call(() => getWeather(action.payload.country , action.payload.days));
+        yield put({type: "FETCH_SUCCEEDED", payload: weather});
     } catch (e) {
-        // @ts-ignore
-        yield put({type: "USER_FETCH_FAILED", message: e.message});
+        yield put({type: "FETCH_FAILED", error: e});
     }
 }
 
 function* mySaga() {
-    yield takeEvery("USER_FETCH_REQUESTED", fetchUser);
+    yield takeEvery("FETCH_REQUESTED", fetchUser);
 }
 
 export default mySaga;

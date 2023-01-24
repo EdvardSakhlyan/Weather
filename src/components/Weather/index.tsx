@@ -1,26 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import "./style.scss"
-import {WeatherResponse} from "../../requests/responseTypes";
+import {Forecastday} from "../../requests/responseTypes";
 import WeatherItem from "./WeatherItem";
-import {changeCount, IAction} from "../../store/actions";
-import getWeather from "../../requests/getWeekWeather";
+import {changeCount, fetchRequest} from "../../store/actions";
 import {useAppDispatch , useAppSelector} from "../../hooks";
-
+import {IRequestReducerState} from "../../store/reducer/requestReducer";
+import {IWeatherState} from "../../store/reducer/weatherReducer";
+import Header from "../Header";
 
 const Weather : React.FC = () => {
 
-    const [{location , forecast} , setWeather] = useState<WeatherResponse>({
-        location: {
-            country: ""
-        },
-        forecast: {
-            forecastday: []
-        }
-    })
-
     const [count , setCount] = useState<number>(7);
 
-    const {country,loadCount,forecastDay} = useAppSelector(state => state.weatherReducer);
+    const {country,loadCount} = useAppSelector<IWeatherState>(state => state.weatherReducer);
+    const {forecastDay} = useAppSelector<IRequestReducerState>(state => state.requestReducer);
 
     const dispatch = useAppDispatch()
 
@@ -34,14 +27,12 @@ const Weather : React.FC = () => {
     }
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch({type: "USER_FETCH_REQUESTED" , payload: {country , days: loadCount}})
-        // getWeather(country, setWeather, loadCount)
-    },[country, loadCount])
+        dispatch(fetchRequest({country , days: loadCount}))
+    },[country, loadCount,dispatch])
 
     return (
         <div className="weather">
-
+            <Header/>
             <hr/>
             <div className="sub-header">
                 <form onSubmit={handleSubmit}>
@@ -51,7 +42,7 @@ const Weather : React.FC = () => {
                 </form>
             </div>
             <div className="week-box">
-                {forecast.forecastday.map(({date , day}) => <WeatherItem date={date} day={day} key={date}/>)}
+                {forecastDay && forecastDay.map(({date , day} : Forecastday) => <WeatherItem date={date} day={day} key={date}/>)}
             </div>
         </div>
     );

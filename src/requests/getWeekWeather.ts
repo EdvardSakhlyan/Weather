@@ -1,7 +1,5 @@
 import axios from "axios";
 import {apiKay} from "./index";
-import React from "react";
-import {WeatherResponse} from "./responseTypes";
 
 const getWeather = async (country: string, days: number) => {
 

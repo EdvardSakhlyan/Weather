@@ -1,12 +1,13 @@
 import React from 'react';
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {changeCountry} from "../../store/actions";
+import {IRequestReducerState} from "../../store/reducer/requestReducer";
 
 const Header : React.FC = () => {
 
     const dispatch = useAppDispatch()
 
-    const {country,region} = useAppSelector(state => state.weatherReducer);
+    const {country,region} = useAppSelector<IRequestReducerState>(state => state.requestReducer);
 
     const handleChangeCountry : React.ChangeEventHandler<HTMLSelectElement> = ({target : {value}}) => {
         dispatch(changeCountry(value))

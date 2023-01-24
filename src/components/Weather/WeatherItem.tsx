@@ -14,7 +14,7 @@ interface WeatherItemProps {
 
 const WeatherItem : React.FC<WeatherItemProps> = ({date,day}) => {
 
-    let reformedDate = reformatDate(date)
+    const reformedDate = reformatDate(date)
 
     return (
         <div key={date} className="day-box">

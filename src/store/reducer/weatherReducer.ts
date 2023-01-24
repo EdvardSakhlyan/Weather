@@ -1,23 +1,16 @@
-interface IWeatherState {
+import {IAction, WeatherPayload} from "../actions";
+
+export interface IWeatherState {
     country: string,
     loadCount: number,
-    region: string,
-    forecastDay: number[]
 }
-
-interface IPayload {
-
-}
-
 
 const initialState : IWeatherState = {
     country: "Armenia",
     loadCount: 7,
-    region: "Yerevan",
-    forecastDay: []
 }
 
-const weatherReducer = (state = initialState , action: { type: string; payload: string | number; }) => {
+const weatherReducer = (state = initialState , action: IAction<WeatherPayload>) => {
     switch (action.type) {
         case "CHANGE_COUNTRY":
             return {
@@ -28,13 +21,6 @@ const weatherReducer = (state = initialState , action: { type: string; payload: 
             return {
                 ...state,
                 loadCount: action.payload
-            }
-        case "USER_FETCH_SUCCEEDED":
-            console.log("USER_FETCH_SUCCEEDED")
-            return {
-                ...state,
-                country: action.payload.location.country,
-                region: action.payload.location.region
             }
         default:
             return state
